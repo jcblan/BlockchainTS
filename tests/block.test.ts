@@ -15,7 +15,7 @@ describe('Block.constructor', () => {
         expect(blqe.hash).to.equal(hash_test);
     });
 
-    it('dos bloque con los mismos datos deberan tener el mismo hash ', () => {  
+    it('Dos bloque con los mismos datos deberan tener el mismo hash ', () => {  
         const hash_anterior = String(SHA256("anterior"))
         const archivo = "archivo"
         const motivo = "motivo"

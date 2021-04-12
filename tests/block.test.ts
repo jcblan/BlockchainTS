@@ -14,4 +14,16 @@ describe('Block.constructor', () => {
         const hash_test = String(SHA256(String(fecha).concat(hash_anterior, motivo, archivo)));
         expect(blqe.hash).to.equal(hash_test);
     });
+
+    it('dos bloque con los mismos datos deberan tener el mismo hash ', () => {  
+        const hash_anterior = String(SHA256("anterior"))
+        const archivo = "archivo"
+        const motivo = "motivo"
+        const fecha = new Date()
+
+        const blqe1 = new Bloque(fecha, hash_anterior, motivo, archivo);
+        const blqe2 = new Bloque(fecha, hash_anterior, motivo, archivo);
+
+        expect(blqe1.hash).to.equal(blqe2.hash);
+    });
 });

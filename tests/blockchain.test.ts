@@ -18,4 +18,22 @@ describe('Blockchain.constructor', () => {
         expect(blckchain.getBloque(0).hash_anterior).to.equal("undefined");
         expect(blckchain.getBloque(0).motivo).to.equal("genesis");
     });
+    it('Generar un segundo bloque debera añadir el bloque despues del genesis ', () => {  
+       
+        const blckchain = Blockchain.getInstancia();
+
+        blckchain.generarBloque("motivo 2do bloque", "archivo 2do bloque");
+
+        expect(blckchain.getBloque(1).hash_anterior).to.equal(blckchain.getBloque(0).hash);
+    });
+    it('Generar dos bloques debera añadir el primero despues del genesis y el segundo despues del primero', () => {  
+       
+        const blckchain = Blockchain.getInstancia();
+
+        blckchain.generarBloque("motivo 2do bloque", "archivo 2do bloque");
+        blckchain.generarBloque("motivo 3er bloque", "archivo 3er bloque");
+
+        expect(blckchain.getBloque(1).hash_anterior).to.equal(blckchain.getBloque(0).hash);
+        expect(blckchain.getBloque(2).hash_anterior).to.equal(blckchain.getBloque(1).hash);
+    });
 });

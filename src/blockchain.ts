@@ -19,14 +19,18 @@ export class Blockchain{
         return Blockchain._instancia;
     }
 
-    set chain( valor: Array<Bloque> ){
+    private set chain( valor: Array<Bloque> ){
         this._chain = valor;
     }
-    get chain(){
+    private get chain(){
         return this._chain;
     }
 
-    getBloque(index: number){
+    public getBloque(index: number){
         return this.chain[index];
+    }
+
+    generarBloque(motivo: string, archivo: string){
+        this.chain.push(new Bloque(new Date(), this.getBloque(this.chain.length-1).hash, motivo, archivo));
     }
 }

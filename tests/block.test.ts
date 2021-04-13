@@ -14,7 +14,7 @@ describe('Block.constructor', () => {
 
         expect(blqe.hash).to.equal("378ac150717b50f41633c5701d12ce59d3cdcb41a0a926f0588d89f52ee19f8f");
     });
-    it('fecha, hash anterior, motivo y archivo debera crear bloque hasheando fecha, hash anterior, motivo y archivo ', () => {  
+    it('Conjunto de datos debera generar bloque con esos datos', () => {  
         const hash_anterior = String(SHA256("anterior"))
         const archivo = "archivo"
         const motivo = "motivo"
@@ -22,7 +22,7 @@ describe('Block.constructor', () => {
         const email = "email@email.com"
 
         const blqe = new Bloque(fecha, hash_anterior, motivo, archivo, email);
-        
+
         expect(blqe.archivo).to.equal("archivo");
         expect(blqe.motivo).to.equal("motivo");
         expect(blqe.fecha.toString()).to.equal("Wed Apr 21 2021 19:30:00 GMT-0300 (hora estándar de Argentina)");

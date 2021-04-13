@@ -1,5 +1,6 @@
 import { Bloque } from './bloque';
 import { SHA256 } from 'crypto-js';
+import { forEachTrailingCommentRange } from 'typescript';
 
 
 export class Blockchain{
@@ -30,7 +31,7 @@ export class Blockchain{
         return this.chain[index];
     }
 
-    generarBloque(motivo: string, archivo: string){
+    public generarBloque(motivo: string, archivo: string){
         this.chain.push(new Bloque(new Date(), this.getBloque(this.chain.length-1).hash, motivo, archivo));
     }
 }

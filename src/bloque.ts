@@ -7,13 +7,15 @@ export class Bloque{
     _archivo: string;
     _motivo: string;
     _fecha: Date
+    _email: string;
     
-    constructor(fecha: Date, hash_anterior: string, motivo: string, archivo:string){
+    constructor(fecha: Date, hash_anterior: string, motivo: string, archivo:string, email: string){
         this.fecha  = fecha;
         this.archivo = archivo;
         this.motivo = motivo;
         this.hash_anterior = hash_anterior;
-        this.hash = String(SHA256(String(this.fecha).concat(this.hash_anterior, this.motivo, this.archivo) ));
+        this.email = email;
+        this.hash = String(SHA256(String(this.fecha).concat(this.hash_anterior, this.motivo, this.archivo, this.email) ));
     }
 
     get archivo(){
@@ -54,6 +56,14 @@ export class Bloque{
 
     set motivo(valor: string){
         this._motivo = valor
+    }
+
+    get email(){
+        return this._email;
+    }
+
+    set email(valor: string){
+        this._email = valor;
     }
 
 }

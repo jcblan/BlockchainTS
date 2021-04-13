@@ -1,6 +1,5 @@
 import { Bloque } from './bloque';
 import { SHA256 } from 'crypto-js';
-import { forEachTrailingCommentRange } from 'typescript';
 
 
 export class Blockchain{
@@ -9,7 +8,7 @@ export class Blockchain{
     private _chain: Array<Bloque> = new Array<Bloque>();
 
     private constructor(){
-        this.chain.push(new Bloque(new Date(0O000,0O0, 0O0), String(undefined), "genesis", "genesis"));
+        this.chain.push(new Bloque(new Date(0O000,0O0, 0O0), String(undefined), "genesis", "genesis", "genesis@genesis.com"));
     }
 
     public static getInstancia(){
@@ -31,7 +30,7 @@ export class Blockchain{
         return this.chain[index];
     }
 
-    public generarBloque(motivo: string, archivo: string){
-        this.chain.push(new Bloque(new Date(), this.getBloque(this.chain.length-1).hash, motivo, archivo));
+    public generarBloque(motivo: string, archivo: string, email: string){
+        this.chain.push(new Bloque(new Date(), this.getBloque(this.chain.length-1).hash, motivo, archivo, email));
     }
 }

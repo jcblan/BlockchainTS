@@ -22,7 +22,7 @@ describe('Blockchain.constructor', () => {
        
         const blckchain = Blockchain.getInstancia();
 
-        blckchain.generarBloque("motivo 2do bloque", "archivo 2do bloque");
+        blckchain.generarBloque("motivo 2do bloque", "archivo 2do bloque", "2doBloque@email.com");
 
         expect(blckchain.getBloque(1).hash_anterior).to.equal(blckchain.getBloque(0).hash);
     });
@@ -30,8 +30,8 @@ describe('Blockchain.constructor', () => {
        
         const blckchain = Blockchain.getInstancia();
 
-        blckchain.generarBloque("motivo 2do bloque", "archivo 2do bloque");
-        blckchain.generarBloque("motivo 3er bloque", "archivo 3er bloque");
+        blckchain.generarBloque("motivo 2do bloque", "archivo 2do bloque", "2doBloque@email.com");
+        blckchain.generarBloque("motivo 3er bloque", "archivo 3er bloque", "3erBloque@email.com");
 
         expect(blckchain.getBloque(1).hash_anterior).to.equal(blckchain.getBloque(0).hash);
         expect(blckchain.getBloque(2).hash_anterior).to.equal(blckchain.getBloque(1).hash);

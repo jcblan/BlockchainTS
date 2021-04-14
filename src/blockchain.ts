@@ -19,9 +19,10 @@ export class Blockchain{
         return Blockchain._instancia;
     }
 
-    private set chain( valor: Array<Bloque> ){
-        this._chain = valor;
-    }
+    // private set chain( valor: Array<Bloque> ){
+    //     this._chain = valor;
+    // }
+    
     private get chain(){
         return this._chain;
     }

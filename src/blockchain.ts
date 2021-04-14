@@ -36,14 +36,14 @@ export class Blockchain{
     }
 
     public verificarBlockchain(){
-        let hsh_ant = "";
+        let hsh_ant = "undefined";
         let index_error = [];
         for (let blqe of this.chain){
-            let hsh = String(SHA256(String(blqe.fecha).concat(blqe.hash_anterior, blqe.motivo, blqe.archivo, blqe.email)));
+            let hsh = String(SHA256(String(blqe.fecha).concat(hsh_ant, blqe.motivo, blqe.archivo, blqe.email)));
             if (hsh != blqe.hash){
                 index_error.push(this.chain.indexOf(blqe));
             }
-
+            hsh_ant = hsh;
         }
         return index_error;
     }

@@ -43,4 +43,14 @@ describe('Blockchain.constructor', () => {
         expect(blckchain.verificarBlockchain().length).to.equal(0);
     });
 
+    it('Debera devolver bloque que concida con hash de busqueda', () => {  
+       
+        const blckchain = Blockchain.getInstancia();
+
+        const hash_test = blckchain.getBloque(1).hash
+        console.log(hash_test);
+        console.log(blckchain.getBloque(1));
+        expect(blckchain.buscarPorHash(hash_test)).to.equal(blckchain.getBloque(1));
+    });
+
 });

@@ -51,4 +51,16 @@ export class Blockchain{
         }
         return index_error;
     }
+
+
+    public buscarPorHash(hash: string){
+        for (let blqe of this.chain){
+            if(blqe.hash === hash){
+                return blqe
+            }else{
+                throw new Error("No se encuentra ese hash en la blockchain");
+            }
+
+        }
+    }
 }

@@ -39,8 +39,12 @@ export class Blockchain{
         let hsh_ant = "undefined";
         let index_error = [];
         for (let blqe of this.chain){
-            let hsh = String(SHA256(String(blqe.fecha).concat(hsh_ant, blqe.motivo, blqe.archivo, blqe.email)));
+            let hsh = blqe.generarHash();
             if (hsh != blqe.hash){
+                index_error.push(this.chain.indexOf(blqe));
+            }
+            if (hsh_ant != blqe.hash_anterior){
+                if (!index_error.includes(this.chain.indexOf(blqe)))
                 index_error.push(this.chain.indexOf(blqe));
             }
             hsh_ant = hsh;

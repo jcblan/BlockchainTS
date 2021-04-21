@@ -8,7 +8,7 @@ export class Blockchain{
     private _chain: Array<Bloque> = new Array<Bloque>();
 
     private constructor(){
-        this.chain.push(new Bloque(new Date(0O000,0O0, 0O0), String(undefined), "genesis", "genesis", "genesis@genesis.com"));
+        this.inicializar();
     }
 
     public static getInstancia(){
@@ -19,16 +19,20 @@ export class Blockchain{
         return Blockchain._instancia;
     }
 
-    // private set chain( valor: Array<Bloque> ){
-    //     this._chain = valor;
-    // }
+    public set chain( valor: Array<Bloque> ){
+        this._chain = valor;
+    }
 
-    private get chain(){
+    public get chain(){
         return this._chain;
     }
 
     public getBloque(index: number){
         return this.chain[index];
+    }
+
+    public insertarBloque(bloque: Bloque){
+        this.chain.push(bloque);
     }
 
     public generarBloque(motivo: string, archivo: string, email: string){
@@ -37,18 +41,33 @@ export class Blockchain{
 
     public verificarBlockchain(){
         let hsh_ant = "undefined";
-        let index_error = [];
         for (let blqe of this.chain){
             let hsh = blqe.generarHash();
             if (hsh != blqe.hash){
-                index_error.push(this.chain.indexOf(blqe));
+                return false;
             }
             if (hsh_ant != blqe.hash_anterior){
-                if (!index_error.includes(this.chain.indexOf(blqe)))
-                index_error.push(this.chain.indexOf(blqe));
+                return false;
             }
             hsh_ant = hsh;
         }
-        return index_error;
+        return true;
+    }
+
+    public inicializar(){
+        this.chain = new Array<Bloque>();
+        this.chain.push(new Bloque(new Date(0O000,0O0, 0O0), String(undefined), "genesis", "genesis", "genesis@genesis.com"));
+
+    }
+
+
+    public buscarPorHash(hash: string){
+        for (let blqe of this.chain){
+            if(blqe.hash.toString() === hash){
+                return blqe;
+            }
+
+        }
+        return undefined;
     }
 }

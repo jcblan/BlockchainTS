@@ -26,7 +26,9 @@ describe('Block.constructor', () => {
 
         expect(blqe.archivo).to.equal("archivo");
         expect(blqe.motivo).to.equal("motivo");
-        expect(blqe.fecha.getTime()).to.equal(1619044200000);
+        expect(blqe.fecha.getDate()).to.equal(21);
+        expect(blqe.fecha.getMonth()).to.equal(3);
+        expect(blqe.fecha.getFullYear()).to.equal(2021);
         expect(blqe.email).to.equal("email@email.com");
 
     });

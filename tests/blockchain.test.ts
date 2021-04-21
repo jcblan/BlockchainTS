@@ -1,5 +1,6 @@
 import { expect } from 'chai';
 import { Blockchain } from '../src/blockchain';
+import { Bloque } from '../src/bloque';
 
 
 describe('Blockchain.constructor', () => {
@@ -40,7 +41,14 @@ describe('Blockchain.constructor', () => {
        
         const blckchain = Blockchain.getInstancia();
 
-        expect(blckchain.verificarBlockchain().length).to.equal(0);
+        expect(blckchain.verificarBlockchain()).to.equal(true);
     });
 
+    it('Debera devolver bloque que concida con hash de busqueda', () => {  
+       
+        const blckchain = Blockchain.getInstancia();
+
+        const hash_test = blckchain.getBloque(1).hash
+        expect(blckchain.buscarPorHash(hash_test).hash).to.equal(blckchain.getBloque(1).hash);
+    });
 });

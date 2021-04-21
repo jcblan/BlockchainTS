@@ -13,8 +13,8 @@ describe('Block.constructor', () => {
 
         const blqe = new Bloque(fecha, hash_anterior, motivo, archivo, email,HashGeneratorStrategy.getStrategy(fecha.getDate()));
         const hash_test = blqe.strategy.generarHash(blqe.toString());
-
-        expect(blqe.hash).to.equal(hash_test);
+        
+        expect(blqe.hash).to.equal("06de85d0c618f51c598da48c743ce2a614ff9f4ff60fd463dc5338766bef4c43");
     });
     it('Conjunto de datos debera generar bloque con esos datos', () => {  
         const hash_anterior = String(SHA256("anterior"))

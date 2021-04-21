@@ -1,4 +1,5 @@
 import { Bloque } from './bloque';
+import { HashGeneratorStrategy } from './hashGeneratorStrategy';
 
 
 export class Blockchain{
@@ -31,17 +32,18 @@ export class Blockchain{
     }
 
     public generarBloque(motivo: string, archivo: string, email: string, anterior?: string,){
+        const fecha = new Date();
         if (anterior == undefined){
-            this.chain.push(new Bloque(new Date(), this.getBloque(this.chain.length-1).hash, motivo, archivo, email));
+            this.chain.push(new Bloque(fecha, this.getBloque(this.chain.length-1).hash, motivo, archivo, email, HashGeneratorStrategy.getStrategy(fecha.getDate())));
         }else{
-            this.chain.push(new Bloque(new Date(), anterior, motivo, archivo, email));
+            this.chain.push(new Bloque(fecha, anterior, motivo, archivo, email, HashGeneratorStrategy.getStrategy(fecha.getDate())));
         }
     }
 
     public verificarBlockchain(){
         let hsh_ant = "undefined";
         for (let blqe of this.chain){
-            let hsh = blqe.generarHash();
+            let hsh = blqe.strategy.generarHash(blqe.toString());
             if (hsh != blqe.hash){
                 return false;
             }
@@ -55,7 +57,7 @@ export class Blockchain{
 
     public inicializar(){
         this.chain = new Array<Bloque>();
-        this.chain.push(new Bloque(new Date(0O000,0O0, 0O0), String(undefined), "genesis", "genesis", "genesis@genesis.com"));
+        this.chain.push(new Bloque(new Date(0O000,0O0, 0O0), String(undefined), "genesis", "genesis", "genesis@genesis.com", HashGeneratorStrategy.getStrategy(1)));
 
     }
 

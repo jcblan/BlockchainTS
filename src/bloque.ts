@@ -1,4 +1,4 @@
-import { SHA256 } from  'crypto-js'; 
+import { HashGeneratorStrategy } from './hashGeneratorStrategy';
 
 export class Bloque{
 
@@ -8,14 +8,16 @@ export class Bloque{
     _motivo: string;
     _fecha: Date;
     _email: string;
+    _strategy: HashGeneratorStrategy;
     
-    constructor(fecha: Date, hash_anterior: string, motivo: string, archivo:string, email: string){
+    constructor(fecha: Date, hash_anterior: string, motivo: string, archivo:string, email: string, strategy: HashGeneratorStrategy){
         this.fecha  = fecha;
         this.archivo = archivo;
         this.motivo = motivo;
         this.hash_anterior = hash_anterior;
         this.email = email;
-        this.hash = this.generarHash();
+        this.strategy = strategy;
+        this.hash = this.strategy.generarHash(this.toString());
     }
 
     get archivo(){
@@ -66,30 +68,16 @@ export class Bloque{
         this._email = valor;
     }
 
+    get strategy(){
+        return this._strategy;
+    }
+
+    set strategy(valor: HashGeneratorStrategy){
+        this._strategy = valor;
+    }
+
     toString(){
         return String(this.fecha).concat(this.hash_anterior, this.motivo, this.archivo, this.email);
     }
 
-    generarHash(){
-        let condicion = false;
-        let hash = "";
-        let nonce: number = 0;
-
-        let datos = this.toString();
-
-        while (!condicion){
-
-            hash = String(SHA256(datos.concat(String(nonce))))
-            
-            if ( ((this.fecha.getDate() % 2) === 0) && (hash.substring(0,2) === "00")){
-                condicion = true;
-            }
-            if ( ((this.fecha.getDate() % 2) === 1) && (hash.substring(0,1) === "0")){
-                condicion = true;
-            }
-            nonce += 1;
-        }
-
-        return hash;
-    }
 }

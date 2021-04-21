@@ -40,16 +40,30 @@ describe('Blockchain.constructor', () => {
         expect(blckchain.getBloque(1).hash_anterior).to.equal(blckchain.getBloque(0).hash);
         expect(blckchain.getBloque(2).hash_anterior).to.equal(blckchain.getBloque(1).hash);
     });
-    it('Debera devolver array con indices si se verifica que falla la integridad del bloque en ese indice', () => {  
+    it('Debera devolver true si se verifica la integridad de la blockchain', () => {  
        
         const blckchain = Blockchain.getInstancia();
         blckchain.inicializar();
-        
+
         blckchain.generarBloque("motivo 1er bloque", "archivo 1er bloque", "1erBloque@email.com");
         blckchain.generarBloque("motivo 2do bloque", "archivo 2do bloque", "2doBloque@email.com");
 
         expect(blckchain.verificarBlockchain()).to.equal(true);
     });
+
+    it('Debera devolver false si no se verifica la integridad de la blockchain', () => {  
+       
+        const blckchain = Blockchain.getInstancia();
+        blckchain.inicializar();
+
+        blckchain.generarBloque("motivo 1er bloque", "archivo 1er bloque", "1erBloque@email.com");
+        blckchain.generarBloque("motivo 2do bloque", "archivo 2do bloque", "2doBloque@email.com", "hash_erroneo");
+        blckchain.generarBloque("motivo 3er bloque", "archivo 3er bloque", "3erBloque@email.com");
+
+        expect(blckchain.verificarBlockchain()).to.equal(false);
+    });
+
+
 
     it('Debera devolver bloque que concida con hash de busqueda', () => {  
        
@@ -60,5 +74,16 @@ describe('Blockchain.constructor', () => {
 
         const hash_test = blckchain.getBloque(1).hash
         expect(blckchain.buscarPorHash(hash_test).hash).to.equal(blckchain.getBloque(1).hash);
+    });
+
+    it('Debera devolver null si no coincide con hash de busqueda', () => {  
+       
+        const blckchain = Blockchain.getInstancia();
+        blckchain.inicializar();
+
+        blckchain.generarBloque("motivo 1er bloque", "archivo 1er bloque", "1erBloque@email.com");
+        blckchain.generarBloque("motivo 2do bloque", "archivo 2do bloque", "2doBloque@email.com");
+        
+        expect(blckchain.buscarPorHash("b221d9dbb083a7f33428d7c2a3c3198ae925614d70210e28716ccaa7cd4ddb79")).to.equal(null);
     });
 });

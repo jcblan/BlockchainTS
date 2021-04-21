@@ -31,12 +31,12 @@ export class Blockchain{
         return this.chain[index];
     }
 
-    public insertarBloque(bloque: Bloque){
-        this.chain.push(bloque);
-    }
-
-    public generarBloque(motivo: string, archivo: string, email: string){
-        this.chain.push(new Bloque(new Date(), this.getBloque(this.chain.length-1).hash, motivo, archivo, email));
+    public generarBloque(motivo: string, archivo: string, email: string, anterior?: string,){
+        if (anterior == undefined){
+            this.chain.push(new Bloque(new Date(), this.getBloque(this.chain.length-1).hash, motivo, archivo, email));
+        }else{
+            this.chain.push(new Bloque(new Date(), anterior, motivo, archivo, email));
+        }
     }
 
     public verificarBlockchain(){
@@ -68,6 +68,6 @@ export class Blockchain{
             }
 
         }
-        return undefined;
+        return null;
     }
 }

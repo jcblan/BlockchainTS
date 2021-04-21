@@ -1,5 +1,4 @@
 import { Bloque } from './bloque';
-import { SHA256 } from 'crypto-js';
 
 
 export class Blockchain{
@@ -19,11 +18,11 @@ export class Blockchain{
         return Blockchain._instancia;
     }
 
-    public set chain( valor: Array<Bloque> ){
+    private set chain( valor: Array<Bloque> ){
         this._chain = valor;
     }
 
-    public get chain(){
+    private get chain(){
         return this._chain;
     }
 
@@ -66,7 +65,6 @@ export class Blockchain{
             if(blqe.hash.toString() === hash){
                 return blqe;
             }
-
         }
         return null;
     }

@@ -6,7 +6,7 @@ export class Bloque{
     _hash_anterior: string;
     _archivo: string;
     _motivo: string;
-    _fecha: Date
+    _fecha: Date;
     _email: string;
     
     constructor(fecha: Date, hash_anterior: string, motivo: string, archivo:string, email: string){
@@ -55,7 +55,7 @@ export class Bloque{
     }
 
     set motivo(valor: string){
-        this._motivo = valor
+        this._motivo = valor;
     }
 
     get email(){
@@ -67,7 +67,7 @@ export class Bloque{
     }
 
     toString(){
-        return String(this.fecha).concat(this.hash_anterior, this.motivo, this.archivo, this.email)
+        return String(this.fecha).concat(this.hash_anterior, this.motivo, this.archivo, this.email);
     }
 
     generarHash(){
@@ -75,7 +75,7 @@ export class Bloque{
         let hash = "";
         let nonce: number = 0;
 
-        let datos = this.toString()
+        let datos = this.toString();
 
         while (!condicion){
 
@@ -90,6 +90,6 @@ export class Bloque{
             nonce += 1;
         }
 
-        return hash
+        return hash;
     }
 }

@@ -70,4 +70,8 @@ export class Blockchain{
         }
         return null;
     }
+
+    public getUltimoBloque(){
+        return this.chain[this.chain.length-1];
+    }
 }
